@@ -1375,7 +1375,7 @@ static int dwc3_probe(struct platform_device *pdev)
 	pm_runtime_allow(dev);
 	return 0;
 
-<<<<<<< HEAD
+
 err_core_init:
 	dwc3_core_exit_mode(dwc);
 	
