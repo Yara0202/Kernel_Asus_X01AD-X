@@ -45,23 +45,6 @@ static inline unsigned long get_random_long(void)
 #endif
 }
 
-void get_random_bytes(void *buf, size_t len);
-size_t __must_check get_random_bytes_arch(void *buf, size_t len);
-u32 get_random_u32(void);
-u64 get_random_u64(void);
-static inline unsigned int get_random_int(void)
-{
-	return get_random_u32();
-}
-static inline unsigned long get_random_long(void)
-{
-#if BITS_PER_LONG == 64
-	return get_random_u64();
-#else
-	return get_random_u32();
-#endif
-}
-
 /*
  * On 64-bit architectures, protect against non-terminated C string overflows
  * by zeroing out the first byte of the canary; this leaves 56 bits of entropy.
