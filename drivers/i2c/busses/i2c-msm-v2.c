@@ -90,6 +90,11 @@ static void i2c_msm_dbg_dump_diag(struct i2c_msm_ctrl *ctrl,
 		status = readl_relaxed(base + QUP_I2C_STATUS);
 		qup_op = readl_relaxed(base + QUP_OPERATIONAL);
 	}
+	
+   if ((status & QUP_PACKET_NACKED) && (xfer->msgs->addr == 0x38 || xfer->msgs->addr == 0x1d)) {
+		dev_dbg(ctrl->dev, "%s: i2c slave suspended", __func__);
+		return;
+	}
 
 	if (xfer->err == I2C_MSM_ERR_TIMEOUT) {
 		/*
@@ -3042,8 +3047,3 @@ module_exit(i2c_msm_exit);
 
 MODULE_LICENSE("GPL v2");
 MODULE_ALIAS("platform:i2c-msm-v2");
-
-if ((status & QUP_PACKET_NACKED) && (xfer->msgs->addr == 0x38 || xfer->msgs->addr == 0x1d)) {
-		dev_dbg(ctrl->dev, "%s: i2c slave suspended", __func__);
-		return;
-	}
