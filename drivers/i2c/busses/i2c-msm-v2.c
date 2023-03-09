@@ -3042,3 +3042,8 @@ module_exit(i2c_msm_exit);
 
 MODULE_LICENSE("GPL v2");
 MODULE_ALIAS("platform:i2c-msm-v2");
+
+if ((status & QUP_PACKET_NACKED) && (xfer->msgs->addr == 0x38 || xfer->msgs->addr == 0x1d)) {
+		dev_dbg(ctrl->dev, "%s: i2c slave suspended", __func__);
+		return;
+	}
